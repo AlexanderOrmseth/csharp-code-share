@@ -143,6 +143,11 @@ public class CodeFragmentController : BaseController
         styleBuilder.Append($".constant{{color:{theme.ConstantColor};}}");
         styleBuilder.Append($".localName{{color:{theme.LocalNameColor};}}");
         styleBuilder.Append($".parameter{{color:{theme.ParameterColor};}}");
+        
+        styleBuilder.Append($".delegate{{color:{theme.ParameterColor};}}");
+        styleBuilder.Append($".eventName{{color:{theme.ParameterColor};}}");
+        styleBuilder.Append($".excludedCode{{color:{theme.ParameterColor};}}");
+        
         styleBuilder.Append("table{white-space:pre;border-spacing:0;width:100%;}");
         styleBuilder.Append(
             ".line_no::before{content:attr(line_no);color:#565656;}.line_no{min-width:40px;border-right:1px solid #222;}");
@@ -154,7 +159,7 @@ public class CodeFragmentController : BaseController
         styleBuilder.Append("</style>");
 
         // use css and generate html
-        var settings = new HTMLEmitterSettings().UseCustomCSS(styleBuilder.ToString());
+        var settings = new HTMLEmitterSettings().UseCustomCSS(styleBuilder.ToString()).DisableIframe();
         var html = new CsharpColourer().ProcessSourceCode(code, new HTMLEmitter(settings));
         return html;
     }

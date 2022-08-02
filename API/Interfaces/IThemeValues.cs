@@ -34,4 +34,8 @@ public interface IThemeValues
     public string ConstantColor { get; }
     public string LocalNameColor { get; }
     public string ParameterColor { get; }
+    
+    public string Delegate { get; }
+    public string EventName { get; }
+    public string ExcludedCode { get; }
 }

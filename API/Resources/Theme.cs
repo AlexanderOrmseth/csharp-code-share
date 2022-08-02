@@ -40,6 +40,9 @@ public static class Theme
         
         public string LocalNameColor { get; } = "#9cdcfe";
         public string ParameterColor { get; } = "#9cdcfe";
+        public string Delegate { get; } = "#4ec9b0";
+        public string EventName { get; } = "#dfdfdf";
+        public string ExcludedCode { get; } = "#808080";
     }
 
     public class Rider : IThemeValues
@@ -76,5 +79,9 @@ public static class Theme
         public string ConstantColor { get; } = "#bdbdbd"; // not set
         public string LocalNameColor { get; } = "#bdbdbd";
         public string ParameterColor { get; }  = "#bdbdbd";
+        
+        public string Delegate { get; }
+        public string EventName { get; }
+        public string ExcludedCode { get; }
     }
 }
