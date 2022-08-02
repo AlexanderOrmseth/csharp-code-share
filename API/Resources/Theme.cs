@@ -79,9 +79,9 @@ public static class Theme
         public string ConstantColor { get; } = "#bdbdbd"; // not set
         public string LocalNameColor { get; } = "#bdbdbd";
         public string ParameterColor { get; }  = "#bdbdbd";
-        
-        public string Delegate { get; }
-        public string EventName { get; }
-        public string ExcludedCode { get; }
+
+        public string Delegate { get; } = "#E1BFFF";
+        public string EventName { get; } = "#ED94C0";
+        public string ExcludedCode { get; } = "#787878";
     }
 }

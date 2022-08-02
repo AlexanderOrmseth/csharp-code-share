@@ -144,9 +144,9 @@ public class CodeFragmentController : BaseController
         styleBuilder.Append($".localName{{color:{theme.LocalNameColor};}}");
         styleBuilder.Append($".parameter{{color:{theme.ParameterColor};}}");
         
-        styleBuilder.Append($".delegate{{color:{theme.ParameterColor};}}");
-        styleBuilder.Append($".eventName{{color:{theme.ParameterColor};}}");
-        styleBuilder.Append($".excludedCode{{color:{theme.ParameterColor};}}");
+        styleBuilder.Append($".delegate{{color:{theme.Delegate};}}");
+        styleBuilder.Append($".eventName{{color:{theme.EventName};}}");
+        styleBuilder.Append($".excludedCode{{color:{theme.ExcludedCode};}}");
         
         styleBuilder.Append("table{white-space:pre;border-spacing:0;width:100%;}");
         styleBuilder.Append(
