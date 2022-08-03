@@ -8,6 +8,7 @@ export default defineConfig({
     port: 3000,
   },
   build: {
+    emptyOutDir: true,
     outDir: "../API/wwwroot",
   },
 });
