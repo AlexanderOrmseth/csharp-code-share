@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useState} from "react";
 
 const Code = ({
   code,
@@ -33,7 +33,7 @@ const Code = ({
         </span>
       </div>
 
-      <div style={{ height: height * scale + "px" }} className="block">
+      <div style={{height: height * scale + "px"}} className="block">
         <iframe
           frameBorder="0"
           srcDoc={code}

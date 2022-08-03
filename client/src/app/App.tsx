@@ -8,14 +8,14 @@ import ErrorBox from "./components/ErrorBox";
 const App = () => {
   return (
     <BrowserRouter>
-      <ScrollToTop/>
+      <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Layout/>}>
-          <Route index element={<FrontPage/>}/>
-          <Route path=":id" element={<DetailsPage/>}/>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<FrontPage />} />
+          <Route path=":id" element={<DetailsPage />} />
           <Route
             path="*"
-            element={<ErrorBox message="This page does not exist!"/>}
+            element={<ErrorBox message="This page does not exist!" />}
           />
         </Route>
       </Routes>

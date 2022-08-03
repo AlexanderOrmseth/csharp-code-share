@@ -1,9 +1,9 @@
-import { FieldError } from "react-hook-form";
+import {FieldError} from "react-hook-form";
 
 interface Props {
   error?: FieldError;
 }
-const FormInputError = ({ error }: Props) => {
+const FormInputError = ({error}: Props) => {
   if (!error) return null;
 
   return (
