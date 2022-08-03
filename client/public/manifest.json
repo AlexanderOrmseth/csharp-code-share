@@ -1,0 +1,20 @@
+{
+  "short_name": "C# Code Share",
+  "name": "C# Code Share",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "favicon.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#1E1E1E",
+  "background_color": "#1E1E1E"
+}
