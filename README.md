@@ -9,7 +9,7 @@ https://csharp-code-share.herokuapp.com/
 ### :hammer_and_wrench: Languages and Tools :
 
 - .Net 6 Web Api
-- React
+- React (migrated to vite)
 - Typescript
 - Postgresql
 
