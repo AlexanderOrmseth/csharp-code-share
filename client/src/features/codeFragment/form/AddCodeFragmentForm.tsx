@@ -16,7 +16,6 @@ import Loader from "../../../app/components/Loader";
 import {FormModel} from "../../../app/models/FormModel";
 import ErrorBox from "../../../app/components/ErrorBox";
 
-
 const AddCodeFragmentForm = () => {
   const navigate = useNavigate();
   const [serverError, setServerError] = useState<string | null>(null);
@@ -84,7 +83,7 @@ const AddCodeFragmentForm = () => {
     } catch (error: any) {
       setServerError(
         error?.data?.title ||
-        "Server Error! Could not fetch preview of your code."
+          "Server Error! Could not fetch preview of your code."
       );
     } finally {
       setLoading(false);
@@ -101,17 +100,17 @@ const AddCodeFragmentForm = () => {
         <header className="mb-4  pb-2 border-b border-dark-400 ">
           <h2 className="mb-2 text-lg font-bold">Share C# Code</h2>
           <div className="flex gap-x-2 text-sm text-slate-50/50 leading-4 items-center flex-wrap">
-            <Info size={16}/>
+            <Info size={16} />
             <em className="flex-1">
               Code is periodically deleted every 6 hours
             </em>
           </div>
         </header>
-        {serverError && <ErrorBox message={serverError}/>}
+        {serverError && <ErrorBox message={serverError} />}
 
         <div className="grid md:grid-cols-2  gap-4">
-          <FormTextInput focus name="title" label="Title" control={control}/>
-          <FormTextInput name="author" label="Author" control={control}/>
+          <FormTextInput focus name="title" label="Title" control={control} />
+          <FormTextInput name="author" label="Author" control={control} />
         </div>
 
         <FormTextInput
@@ -130,7 +129,7 @@ const AddCodeFragmentForm = () => {
             loading={isSubmitting || loading}
             loadingMessage="Loading..."
           >
-            <Share size="1.25rem"/>
+            <Share size="1.25rem" />
             Share
           </LoadingButton>
           <LoadingButton
@@ -140,14 +139,14 @@ const AddCodeFragmentForm = () => {
             loadingMessage="Loading.."
             onClick={(e) => fetchPreview(e)}
           >
-            <CodeIcon size="1.25rem"/>
+            <CodeIcon size="1.25rem" />
             Preview
           </LoadingButton>
         </div>
       </form>
       {loading ? (
         <div className="mt-4 bg-visual-studio-bg border border-dark-700 shadow-lg rounded-lg p4">
-          <Loader message="Getting preview..."/>
+          <Loader message="Getting preview..." />
         </div>
       ) : (
         <>
@@ -159,7 +158,7 @@ const AddCodeFragmentForm = () => {
                 header={
                   <header className="mb-4 border-b text-sm text-gray-100/70 pb-2 border-dark-400">
                     <h2 className="flex-1 font-bold flex-wrap flex items-center gap-2">
-                      <Eye size="1.5rem"/>
+                      <Eye size="1.5rem" />
                       <em className="flex-1 text-purple-300 leading-4">
                         Preview
                       </em>

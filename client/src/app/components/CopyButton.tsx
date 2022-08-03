@@ -26,12 +26,12 @@ const CopyButton = ({data, btnText, Icon}: Props) => {
     >
       {!showSuccess ? (
         <>
-          {Icon ? <Icon size="1.25rem"/> : <Copy size="1.25rem"/>}
+          {Icon ? <Icon size="1.25rem" /> : <Copy size="1.25rem" />}
           {btnText}
         </>
       ) : (
         <>
-          <ThumbsUp size="1.25rem"/>
+          <ThumbsUp size="1.25rem" />
           Copied!
         </>
       )}

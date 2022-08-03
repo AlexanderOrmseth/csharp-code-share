@@ -29,4 +29,16 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\static\css\main.c1f5d0d9.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\static\css\main.c1f5d0d9.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\static\js\main.a59c4fe3.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\static\js\main.a59c4fe3.js.LICENSE.txt" />
+      <_ContentIncludedByDefault Remove="wwwroot\static\js\main.a59c4fe3.js.map" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot" />
+    </ItemGroup>
+
 </Project>

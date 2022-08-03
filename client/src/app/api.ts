@@ -6,10 +6,10 @@ import {
 import axios, {AxiosError} from "axios";
 import {FormModel} from "./models/FormModel";
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-axios.defaults.withCredentials = true;
-const namespace = "codeFragment";
+const BASE_URL = import.meta.env.DEV ? "http://localhost:5003/api/" : "/api/";
+axios.defaults.baseURL = BASE_URL;
 
+const namespace = "codeFragment";
 axios.interceptors.response.use(
   async (response) => response,
   (error: AxiosError) => Promise.reject(error.response)
@@ -17,7 +17,7 @@ axios.interceptors.response.use(
 
 const api = {
   addCodeFragment: (values: FormModel) =>
-    axios.post<{ id: string }>(namespace, values).then((res) => res.data),
+    axios.post<{id: string}>(namespace, values).then((res) => res.data),
   getCodeFragmentById: (id: string, theme?: string | null) =>
     axios
       .get<CodeFragmentModel>(`${namespace}/${id}`, {
