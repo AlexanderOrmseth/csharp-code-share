@@ -143,11 +143,11 @@ public class CodeFragmentController : BaseController
         styleBuilder.Append($".constant{{color:{theme.ConstantColor};}}");
         styleBuilder.Append($".localName{{color:{theme.LocalNameColor};}}");
         styleBuilder.Append($".parameter{{color:{theme.ParameterColor};}}");
-        
+
         styleBuilder.Append($".delegate{{color:{theme.Delegate};}}");
         styleBuilder.Append($".eventName{{color:{theme.EventName};}}");
         styleBuilder.Append($".excludedCode{{color:{theme.ExcludedCode};}}");
-        
+
         styleBuilder.Append("table{white-space:pre;border-spacing:0;width:100%;}");
         styleBuilder.Append(
             ".line_no::before{content:attr(line_no);color:#565656;}.line_no{min-width:40px;border-right:1px solid #222;}");
