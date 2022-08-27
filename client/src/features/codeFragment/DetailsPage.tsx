@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
-import {Link2, Code as CodeIcon} from "react-feather";
-import {useParams, useSearchParams} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link2, Code as CodeIcon } from "react-feather";
+import { useParams, useSearchParams } from "react-router-dom";
 import api from "../../app/api";
-import {CodeFragmentModel} from "../../app/models/codeFragmentModel";
+import { CodeFragmentModel } from "../../app/models/codeFragmentModel";
 import CopyButton from "../../app/components/CopyButton";
 import ErrorBox from "../../app/components/ErrorBox";
 import Loader from "../../app/components/Loader";
@@ -10,7 +10,7 @@ import CodeHeader from "./components/CodeHeader";
 import Code from "./components/Code";
 
 const DetailsPage = () => {
-  const {id} = useParams<{id: string}>();
+  const { id } = useParams<{ id: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
   const theme = searchParams.get("theme");
   const [data, setData] = useState<CodeFragmentModel | null>(null);
@@ -50,11 +50,11 @@ const DetailsPage = () => {
   else
     content = data ? (
       <>
-        <div className="mb-2 grid sm:grid-cols-3 gap-2">
+        <div className="mb-2 grid gap-2 sm:grid-cols-3">
           <button
-            className="btn-secondary h-10 disabled-btn"
+            className="btn-secondary disabled-btn h-10"
             disabled={theme === "rider"}
-            onClick={() => setSearchParams({theme: "rider"})}
+            onClick={() => setSearchParams({ theme: "rider" })}
           >
             <svg
               role="img"

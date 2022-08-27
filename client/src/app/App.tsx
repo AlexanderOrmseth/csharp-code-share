@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FrontPage from "../features/codeFragment/FrontPage";
 import DetailsPage from "../features/codeFragment/DetailsPage";
 import Layout from "./layout/Layout";

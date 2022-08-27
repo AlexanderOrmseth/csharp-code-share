@@ -24,12 +24,12 @@ module.exports = {
         "disabled-bg": "#4b5154",
         "disabled-color": "#9e9689",
 
-        "visual-studio-bg": "#1E1E1e",
+        "visual-studio-bg": "#1E1E1e"
       },
       animation: {
-        "spin-slow": "spin 1.5s linear infinite",
-      },
-    },
+        "spin-slow": "spin 1.5s linear infinite"
+      }
+    }
   },
-  plugins: [],
+  plugins: []
 };

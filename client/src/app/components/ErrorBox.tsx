@@ -1,8 +1,8 @@
-import {AlertCircle} from "react-feather";
+import { AlertCircle } from "react-feather";
 
-const ErrorBox = ({message}: {message: string}) => {
+const ErrorBox = ({ message }: { message: string }) => {
   return (
-    <div className="md:p-2.5 p-2 flex items-center border-red-500 text-sm border rounded bg-red-500/50 shadow font-medium text-red-100">
+    <div className="flex items-center rounded border border-red-500 bg-red-500/50 p-2 text-sm font-medium text-red-100 shadow md:p-2.5">
       <AlertCircle size="1.5rem" className="mr-2" />
       <em className="flex-1">{message}</em>
     </div>

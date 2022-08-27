@@ -1,11 +1,11 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <nav className="max-w-screen-2xl flex items-center justify-start mx-auto">
+    <nav className="mx-auto flex max-w-screen-2xl items-center justify-start">
       <Link
         to="/"
-        className="flex items-center gap-x-2 font-bold px-2 hover:text-white/90"
+        className="flex items-center gap-x-2 px-2 font-bold hover:text-white/90"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

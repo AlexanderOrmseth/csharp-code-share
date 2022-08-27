@@ -1,9 +1,9 @@
-import {useState} from "react";
+import { useState } from "react";
 
 const Code = ({
   code,
   linesOfCode,
-  header,
+  header
 }: {
   code: string;
   linesOfCode: number;
@@ -15,36 +15,36 @@ const Code = ({
   const height = linesOfCode * 24 + 24;
 
   return (
-    <div className="bg-visual-studio-bg rounded-lg border border-dark-700 p-4">
+    <div className="bg-visual-studio-bg border-dark-700 rounded-lg border p-4">
       {header && header}
 
-      <div className="flex mb-4 gap-2 flex-row items-center">
+      <div className="mb-4 flex flex-row items-center gap-2">
         <input
           type="range"
           step={0.1}
           min={0.3}
           max={1.5}
-          className="flex-1 w-full h-3 rounded-lg touch-none appearance-none cursor-pointer range-lg dark:bg-gray-300/20"
+          className="range-lg h-3 w-full flex-1 cursor-pointer touch-none appearance-none rounded-lg dark:bg-gray-300/20"
           value={scale}
           onChange={(e) => setScale(+e.target.value)}
         />
-        <span className="text-xs text-gray-400 font-mono">
+        <span className="font-mono text-xs text-gray-400">
           {scale.toFixed(1)}
         </span>
       </div>
 
-      <div style={{height: height * scale + "px"}} className="block">
+      <div style={{ height: height * scale + "px" }} className="block">
         <iframe
-          frameBorder="0"
+          seamless
           srcDoc={code}
-          className="w-full block overflow-auto"
+          className="block w-full overflow-auto"
           title={"C# Code Fragment"}
           style={{
             height: height + "px",
             backgroundColor: "#1E1E1E",
             transform: `scale(${scale})`,
             width: `${100 / scale}%`,
-            transformOrigin: "0 0",
+            transformOrigin: "0 0"
           }}
         ></iframe>
       </div>

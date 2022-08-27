@@ -15,7 +15,7 @@ const LoadingButton = ({
   className,
   disabled,
   loadingMessage,
-  type = "button",
+  type = "button"
 }: Props) => {
   return (
     <button

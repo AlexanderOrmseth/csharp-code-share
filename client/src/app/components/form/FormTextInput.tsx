@@ -2,11 +2,12 @@ import {
   Controller,
   UseControllerProps,
   useController,
-  FieldValues,
+  FieldValues
 } from "react-hook-form";
 import FormInputError from "./FormInputError";
+import React from "react";
 
-interface Props<T> extends UseControllerProps<T> {
+interface Props<T extends FieldValues> extends UseControllerProps<T> {
   label: string;
   type?: string;
   placeholder?: string;
@@ -24,8 +25,8 @@ const checkKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 };
 
 const FormTextInput = <T extends FieldValues>(props: Props<T>) => {
-  const {fieldState} = useController({
-    ...props,
+  const { fieldState } = useController({
+    ...props
   });
 
   return (
@@ -42,14 +43,14 @@ const FormTextInput = <T extends FieldValues>(props: Props<T>) => {
       </label>
       <Controller
         {...props}
-        render={({field: {value, ...rest}}) => (
+        render={({ field: { value, ...rest } }) => (
           <div className="mt-1">
             {!props.textarea ? (
               <input
                 onKeyDown={(e) => checkKeyDown(e)}
                 autoComplete="off"
                 className={`text-input ${
-                  !!fieldState.error
+                  fieldState.error
                     ? "border-red-500  text-red-400 placeholder:text-transparent"
                     : ""
                 }`}
@@ -62,8 +63,8 @@ const FormTextInput = <T extends FieldValues>(props: Props<T>) => {
             ) : (
               <textarea
                 autoComplete="off"
-                className={`text-input resize-y py-0.5 h-auto ${
-                  !!fieldState.error
+                className={`text-input h-auto resize-y py-0.5 ${
+                  fieldState.error
                     ? "border-red-500  text-red-400 placeholder:text-transparent"
                     : ""
                 }`}

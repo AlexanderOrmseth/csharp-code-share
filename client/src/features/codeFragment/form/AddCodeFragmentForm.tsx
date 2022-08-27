@@ -1,19 +1,19 @@
-import {useState} from "react";
-import {Share, Code as CodeIcon, Info, Eye} from "react-feather";
-import {useForm} from "react-hook-form";
-import {useNavigate} from "react-router-dom";
+import React, { useState } from "react";
+import { Share, Code as CodeIcon, Info, Eye } from "react-feather";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import api from "../../../app/api";
 import {
   CodeFragmentPreviewModel,
-  RequestPreviewModel,
+  RequestPreviewModel
 } from "../../../app/models/codeFragmentModel";
 import Code from "../components/Code";
 import FormTextInput from "../../../app/components/form/FormTextInput";
 import LoadingButton from "../../../app/components/LoadingButton";
-import {schema} from "./validationSchema";
-import {zodResolver} from "@hookform/resolvers/zod";
+import { schema } from "./validationSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Loader from "../../../app/components/Loader";
-import {FormModel} from "../../../app/models/FormModel";
+import { FormModel } from "../../../app/models/FormModel";
 import ErrorBox from "../../../app/components/ErrorBox";
 
 const AddCodeFragmentForm = () => {
@@ -30,11 +30,11 @@ const AddCodeFragmentForm = () => {
     handleSubmit,
     control,
     getValues,
-    formState: {isSubmitting, isValid},
+    formState: { isSubmitting, isValid }
   } = useForm<FormModel>({
     mode: "all",
     reValidateMode: "onChange",
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema)
   });
 
   // upload code
@@ -75,7 +75,7 @@ const AddCodeFragmentForm = () => {
     try {
       setLoading(true);
       const values: RequestPreviewModel = {
-        code,
+        code
       };
       const response = await api.getPreview(values);
       setPreviewCodeString(code);
@@ -94,12 +94,12 @@ const AddCodeFragmentForm = () => {
     <div>
       <form
         spellCheck={false}
-        className="space-y-4 bg-visual-studio-bg border border-dark-700 rounded-lg md:p-6 p-4"
+        className="bg-visual-studio-bg border-dark-700 space-y-4 rounded-lg border p-4 md:p-6"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <header className="mb-4  pb-2 border-b border-dark-400 ">
+        <header className="border-dark-400  mb-4 border-b pb-2 ">
           <h2 className="mb-2 text-lg font-bold">Share C# Code</h2>
-          <div className="flex gap-x-2 text-sm text-slate-50/50 leading-4 items-center flex-wrap">
+          <div className="flex flex-wrap items-center gap-x-2 text-sm leading-4 text-slate-50/50">
             <Info size={16} />
             <em className="flex-1">
               Code is periodically deleted every 6 hours
@@ -108,7 +108,7 @@ const AddCodeFragmentForm = () => {
         </header>
         {serverError && <ErrorBox message={serverError} />}
 
-        <div className="grid md:grid-cols-2  gap-4">
+        <div className="grid gap-4  md:grid-cols-2">
           <FormTextInput focus name="title" label="Title" control={control} />
           <FormTextInput name="author" label="Author" control={control} />
         </div>
@@ -122,7 +122,7 @@ const AddCodeFragmentForm = () => {
           label="Code"
           control={control}
         />
-        <div className="grid sm:grid-cols-2 gap-4">
+        <div className="grid gap-4 sm:grid-cols-2">
           <LoadingButton
             type="submit"
             disabled={isSubmitting || !isValid || loading}
@@ -145,7 +145,7 @@ const AddCodeFragmentForm = () => {
         </div>
       </form>
       {loading ? (
-        <div className="mt-4 bg-visual-studio-bg border border-dark-700 shadow-lg rounded-lg p4">
+        <div className="bg-visual-studio-bg border-dark-700 p4 mt-4 rounded-lg border shadow-lg">
           <Loader message="Getting preview..." />
         </div>
       ) : (
@@ -156,10 +156,10 @@ const AddCodeFragmentForm = () => {
                 code={preview.code}
                 linesOfCode={preview.linesOfCode}
                 header={
-                  <header className="mb-4 border-b text-sm text-gray-100/70 pb-2 border-dark-400">
-                    <h2 className="flex-1 font-bold flex-wrap flex items-center gap-2">
+                  <header className="border-dark-400 mb-4 border-b pb-2 text-sm text-gray-100/70">
+                    <h2 className="flex flex-1 flex-wrap items-center gap-2 font-bold">
                       <Eye size="1.5rem" />
-                      <em className="flex-1 text-purple-300 leading-4">
+                      <em className="flex-1 leading-4 text-purple-300">
                         Preview
                       </em>
                     </h2>

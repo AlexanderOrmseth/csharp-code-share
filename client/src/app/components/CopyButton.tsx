@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Copy, ThumbsUp, IconProps} from "react-feather";
+import React, { useState } from "react";
+import { Copy, ThumbsUp, IconProps } from "react-feather";
 
 type Icon = React.FunctionComponent<IconProps>;
 
@@ -9,7 +9,7 @@ interface Props {
   Icon: Icon;
 }
 
-const CopyButton = ({data, btnText, Icon}: Props) => {
+const CopyButton = ({ data, btnText, Icon }: Props) => {
   const [showSuccess, setShowSuccess] = useState(false);
 
   const copyText = () => {
@@ -21,7 +21,7 @@ const CopyButton = ({data, btnText, Icon}: Props) => {
   return (
     <button
       disabled={showSuccess}
-      className="disabled-btn h-10 btn-secondary"
+      className="disabled-btn btn-secondary h-10"
       onClick={copyText}
     >
       {!showSuccess ? (

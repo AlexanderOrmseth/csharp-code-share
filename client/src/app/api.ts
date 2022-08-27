@@ -1,10 +1,10 @@
 import {
   CodeFragmentModel,
   CodeFragmentPreviewModel,
-  RequestPreviewModel,
+  RequestPreviewModel
 } from "./models/codeFragmentModel";
-import axios, {AxiosError} from "axios";
-import {FormModel} from "./models/FormModel";
+import axios, { AxiosError } from "axios";
+import { FormModel } from "./models/FormModel";
 
 const BASE_URL = import.meta.env.DEV ? "http://localhost:5003/api/" : "/api/";
 axios.defaults.baseURL = BASE_URL;
@@ -16,18 +16,23 @@ axios.interceptors.response.use(
 );
 
 const api = {
-  addCodeFragment: (values: FormModel) =>
-    axios.post<{id: string}>(namespace, values).then((res) => res.data),
-  getCodeFragmentById: (id: string, theme?: string | null) =>
-    axios
+  addCodeFragment: (values: FormModel) => {
+    return axios
+      .post<{ id: string }>(namespace, values)
+      .then((res) => res.data);
+  },
+  getCodeFragmentById: (id: string, theme?: string | null) => {
+    return axios
       .get<CodeFragmentModel>(`${namespace}/${id}`, {
-        params: {theme: theme || null},
+        params: { theme: theme || null }
       })
-      .then((res) => res.data),
-  getPreview: (values: RequestPreviewModel) =>
-    axios
+      .then((res) => res.data);
+  },
+  getPreview: (values: RequestPreviewModel) => {
+    return axios
       .post<CodeFragmentPreviewModel>(`${namespace}/preview`, values)
-      .then((res) => res.data),
+      .then((res) => res.data);
+  }
 };
 
 export default api;
