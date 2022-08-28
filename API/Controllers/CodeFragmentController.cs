@@ -35,22 +35,18 @@ public class CodeFragmentController : BaseController
 
         var codeFragment = await _codeRepository.GetCodeById(validId);
 
-        // check if exists
         if (codeFragment is null) return NotFound();
 
-        // generate html
-        var html = GenerateHtml(codeFragment.Code, theme);
-        var linesOfCode = html.Split(new[] {"<tr>"}, StringSplitOptions.None).Length - 1;
-
+        var generateHtml = GenerateHtml(codeFragment.Code, theme);
         return Ok(new CodeFragmentDto
         {
             Id = codeFragment.Id,
             Title = codeFragment.Title,
             Author = codeFragment.Author,
-            Code = html,
+            Code = generateHtml.Html,
             CodeString = codeFragment.Code,
             CreatedAt = codeFragment.CreatedAt,
-            LinesOfCode = linesOfCode
+            LinesOfCode = generateHtml.LinesOfCode
         });
     }
 
@@ -60,11 +56,11 @@ public class CodeFragmentController : BaseController
     /// <param name="request">Code and theme</param>
     /// <returns>A preview with syntax highlight</returns>
     [HttpPost("preview")]
-    public CodePreview GetPreview([FromBody] RequestPreview request)
+    public Task<ActionResult<GeneratedHtml>> GetPreview([FromBody] CodePreviewRequest request)
     {
-        var html = GenerateHtml(request.Code, request.Theme);
-        var linesOfCode = html.Split(new[] {"<tr>"}, StringSplitOptions.None).Length - 1;
-        return new CodePreview {Code = html, LinesOfCode = linesOfCode};
+        var generateHtml = GenerateHtml(request.Code, request.Theme);
+        return Task.FromResult<ActionResult<GeneratedHtml>>(Ok(new GeneratedHtml
+            {Html = generateHtml.Html, LinesOfCode = generateHtml.LinesOfCode}));
     }
 
     /// <summary>
@@ -75,7 +71,6 @@ public class CodeFragmentController : BaseController
     [HttpPost]
     public async Task<ActionResult<Guid>> AddCodeFragment([FromBody] AddCodeFragmentDto addCodeFragmentDto)
     {
-        // new codeFragment
         var newCodeFragment = new CodeFragment
         {
             Title = addCodeFragmentDto.Title,
@@ -84,8 +79,9 @@ public class CodeFragmentController : BaseController
             CreatedAt = DateTime.UtcNow
         };
 
-        // add codeFragment -> return Id of added fragment
-        if (await _codeRepository.AddCodeAndSave(newCodeFragment))
+        var result = await _codeRepository.AddCodeAndSave(newCodeFragment);
+
+        if (result)
             return CreatedAtAction(nameof(GetCodeFragmentById), new {id = newCodeFragment.Id},
                 new {newCodeFragment.Id});
 
@@ -98,9 +94,9 @@ public class CodeFragmentController : BaseController
     /// <param name="code">string</param>
     /// <param name="themeParam">string</param>
     /// <returns>html as a string</returns>
-    private static string GenerateHtml(string code, string? themeParam = null)
+    private static GeneratedHtml GenerateHtml(string code, string? themeParam = null)
     {
-        // get theme
+        // set theme
         IThemeValues theme = themeParam switch
         {
             "rider" => new Theme.Rider(),
@@ -158,9 +154,9 @@ public class CodeFragmentController : BaseController
             "@media(hover: hover) and (pointer: fine) {tr:hover{background-color:#252627;}tr:hover>.line_no::before{color:#929292;}}");
         styleBuilder.Append("</style>");
 
-        // use css and generate html
         var settings = new HTMLEmitterSettings().UseCustomCSS(styleBuilder.ToString()).DisableIframe();
         var html = new CsharpColourer().ProcessSourceCode(code, new HTMLEmitter(settings));
-        return html;
+        var linesOfCode = html.Split(new[] {"<tr>"}, StringSplitOptions.None).Length - 1;
+        return new GeneratedHtml {Html = html, LinesOfCode = linesOfCode};
     }
 }

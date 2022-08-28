@@ -47,6 +47,7 @@ const FormTextInput = <T extends FieldValues>(props: Props<T>) => {
           <div className="mt-1">
             {!props.textarea ? (
               <input
+                id={props.name}
                 onKeyDown={(e) => checkKeyDown(e)}
                 autoComplete="off"
                 className={`text-input ${
@@ -62,6 +63,7 @@ const FormTextInput = <T extends FieldValues>(props: Props<T>) => {
               />
             ) : (
               <textarea
+                id={props.name}
                 autoComplete="off"
                 className={`text-input h-auto resize-y py-0.5 ${
                   fieldState.error

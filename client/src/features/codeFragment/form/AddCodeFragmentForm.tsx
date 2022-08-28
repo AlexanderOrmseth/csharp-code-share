@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import api from "../../../app/api";
 import {
-  CodeFragmentPreviewModel,
-  RequestPreviewModel
+  CodePreviewResponse,
+  CodePreviewRequestModel
 } from "../../../app/models/codeFragmentModel";
 import Code from "../components/Code";
 import FormTextInput from "../../../app/components/form/FormTextInput";
@@ -19,7 +19,7 @@ import ErrorBox from "../../../app/components/ErrorBox";
 const AddCodeFragmentForm = () => {
   const navigate = useNavigate();
   const [serverError, setServerError] = useState<string | null>(null);
-  const [preview, setPreview] = useState<CodeFragmentPreviewModel | null>(null);
+  const [preview, setPreview] = useState<CodePreviewResponse | null>(null);
   const [previewCodeString, setPreviewCodeString] = useState<string | null>(
     null
   );
@@ -74,7 +74,7 @@ const AddCodeFragmentForm = () => {
 
     try {
       setLoading(true);
-      const values: RequestPreviewModel = {
+      const values: CodePreviewRequestModel = {
         code
       };
       const response = await api.getPreview(values);
@@ -97,7 +97,7 @@ const AddCodeFragmentForm = () => {
         className="bg-visual-studio-bg border-dark-700 space-y-4 rounded-lg border p-4 md:p-6"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <header className="border-dark-400  mb-4 border-b pb-2 ">
+        <header className="border-dark-400 mb-4 border-b pb-2 ">
           <h2 className="mb-2 text-lg font-bold">Share C# Code</h2>
           <div className="flex flex-wrap items-center gap-x-2 text-sm leading-4 text-slate-50/50">
             <Info size={16} />
@@ -108,7 +108,7 @@ const AddCodeFragmentForm = () => {
         </header>
         {serverError && <ErrorBox message={serverError} />}
 
-        <div className="grid gap-4  md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2">
           <FormTextInput focus name="title" label="Title" control={control} />
           <FormTextInput name="author" label="Author" control={control} />
         </div>
@@ -153,7 +153,7 @@ const AddCodeFragmentForm = () => {
           {preview && (
             <div className="mt-4">
               <Code
-                code={preview.code}
+                code={preview.html}
                 linesOfCode={preview.linesOfCode}
                 header={
                   <header className="border-dark-400 mb-4 border-b pb-2 text-sm text-gray-100/70">

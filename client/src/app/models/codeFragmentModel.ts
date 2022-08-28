@@ -8,12 +8,12 @@ export interface CodeFragmentModel {
   codeString: string;
 }
 
-export interface CodeFragmentPreviewModel {
-  code: string;
+export interface CodePreviewResponse {
+  html: string;
   linesOfCode: number;
 }
 
-export interface RequestPreviewModel {
+export interface CodePreviewRequestModel {
   code: string;
   theme?: string | null;
 }

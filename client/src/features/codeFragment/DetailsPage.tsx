@@ -15,26 +15,20 @@ const DetailsPage = () => {
   const theme = searchParams.get("theme");
   const [data, setData] = useState<CodeFragmentModel | null>(null);
   const [error, setError] = useState<string | null | undefined>(undefined);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchAsync() {
-      if (!id) {
-        setError("No id");
-        return;
-      }
-
-      setLoading(true);
       try {
-        const response = await api.getCodeFragmentById(id, theme);
+        const response = await api.getCodeFragmentById(id as string, theme);
         setError(null);
         setData(response);
       } catch (error: any) {
-        console.error(error);
         if (error?.data?.title) {
           setError(error.data.title);
         } else {
           setError("Server Error!");
+          console.error(error);
         }
       } finally {
         setLoading(false);

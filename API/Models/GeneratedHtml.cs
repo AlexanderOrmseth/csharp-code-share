@@ -1,7 +1,8 @@
 namespace API.Models;
 
-public class CodePreview
+public class GeneratedHtml
 {
-    public string Code { get; set; }
+    public string Html { get; set; }
+
     public int LinesOfCode { get; set; }
 }

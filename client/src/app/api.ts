@@ -1,7 +1,7 @@
 import {
   CodeFragmentModel,
-  CodeFragmentPreviewModel,
-  RequestPreviewModel
+  CodePreviewResponse,
+  CodePreviewRequestModel
 } from "./models/codeFragmentModel";
 import axios, { AxiosError } from "axios";
 import { FormModel } from "./models/FormModel";
@@ -28,9 +28,9 @@ const api = {
       })
       .then((res) => res.data);
   },
-  getPreview: (values: RequestPreviewModel) => {
+  getPreview: (values: CodePreviewRequestModel) => {
     return axios
-      .post<CodeFragmentPreviewModel>(`${namespace}/preview`, values)
+      .post<CodePreviewResponse>(`${namespace}/preview`, values)
       .then((res) => res.data);
   }
 };

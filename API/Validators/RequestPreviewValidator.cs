@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace API.Validators;
 
-public class RequestPreviewValidator : AbstractValidator<RequestPreview>
+public class RequestPreviewValidator : AbstractValidator<CodePreviewRequest>
 {
     public RequestPreviewValidator()
     {
