@@ -21,7 +21,9 @@ const DetailsPage = () => {
     {
       onError: (error: ErrorModel) => {
         setError(error?.data?.title || "Server Error!");
-      }
+      },
+      retry: false,
+      refetchOnWindowFocus: false
     }
   );
 
