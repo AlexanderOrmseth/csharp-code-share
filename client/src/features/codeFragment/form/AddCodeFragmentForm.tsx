@@ -3,104 +3,87 @@ import { Share, Code as CodeIcon, Info, Eye } from "react-feather";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import api from "../../../app/api";
-import {
-  CodePreviewResponse,
-  CodePreviewRequestModel
-} from "../../../app/models/codeFragmentModel";
 import Code from "../components/Code";
 import FormTextInput from "../../../app/components/form/FormTextInput";
 import LoadingButton from "../../../app/components/LoadingButton";
-import { schema } from "./validationSchema";
+import { FormModel, FormSchema } from "./validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Loader from "../../../app/components/Loader";
-import { FormModel } from "../../../app/models/FormModel";
 import ErrorBox from "../../../app/components/ErrorBox";
+import { useMutation } from "react-query";
+import { ErrorModel } from "../../../app/models/errorModel";
 
 const AddCodeFragmentForm = () => {
   const navigate = useNavigate();
   const [serverError, setServerError] = useState<string | null>(null);
-  const [preview, setPreview] = useState<CodePreviewResponse | null>(null);
-  const [previewCodeString, setPreviewCodeString] = useState<string | null>(
-    null
-  );
-  const [loading, setLoading] = useState(false);
-
-  // RHF
   const {
     handleSubmit,
     control,
     getValues,
-    formState: { isSubmitting, isValid }
+    reset,
+    formState: { isSubmitting, isValid, isDirty }
   } = useForm<FormModel>({
     mode: "all",
     reValidateMode: "onChange",
-    resolver: zodResolver(schema)
+    resolver: zodResolver(FormSchema)
   });
 
-  // upload code
-  const onSubmit = async (data: FormModel) => {
-    setServerError(null);
-    try {
-      const response = await api.addCodeFragment(data);
-      console.log({ response });
-      navigate(response);
-    } catch (error: any) {
-      if (error?.data?.errors) {
-        const validationError = Object.values(
-          error.data.errors
-        ).flat()[0] as string;
-        setServerError(
-          validationError || "Server Error! Could not share your code."
-        );
-      } else {
-        console.error(error);
-        setServerError(
-          error?.data?.title || "Server Error! Could not share your code."
-        );
+  // add
+  const { mutate: addCodeFragment, isLoading } = useMutation(
+    api.addCodeFragment,
+    {
+      onSuccess: (data) => navigate(data),
+      onError: (error: ErrorModel) => {
+        handleMutationError(error, "Error! Could not upload your code.");
       }
     }
+  );
+
+  // preview
+  const {
+    mutate: fetchPreview,
+    isLoading: previewLoading,
+    data: preview
+  } = useMutation(api.getPreview, {
+    onError: (error: ErrorModel) => {
+      handleMutationError(
+        error,
+        "Error! Could not fetch preview of your code."
+      );
+    }
+  });
+
+  const onSubmit = async (data: FormModel) => {
+    await addCodeFragment(data);
   };
 
-  // fetch preview
-  const fetchPreview = async (
+  const handleFetchPreview = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     // prevent submit
     e.preventDefault();
     setServerError(null);
     const code = getValues("code");
+    reset({}, { keepValues: true });
+    await fetchPreview({ code });
+  };
 
-    // code unchanged, prevent api call
-    if (code === previewCodeString) return;
-
-    try {
-      setLoading(true);
-      const values: CodePreviewRequestModel = {
-        code
-      };
-      const response = await api.getPreview(values);
-      setPreviewCodeString(code);
-      setPreview(response);
-    } catch (error: any) {
-      if (error?.data?.errors) {
-        const validationError = Object.values(
-          error.data.errors
-        ).flat()[0] as string;
-        setServerError(
-          validationError ||
-            "Server Error! Could not fetch a preview of your code."
-        );
-      } else {
-        console.error(error);
-        setServerError(
-          error?.data?.title ||
-            "Server Error! Could not fetch a preview of your code."
-        );
-      }
-    } finally {
-      setLoading(false);
+  const handleMutationError = (error: ErrorModel, message: string) => {
+    // validation error
+    if (error?.data?.errors) {
+      const validationError = Object.values(
+        error.data.errors
+      ).flat()[0] as string;
+      setServerError(validationError || message);
+    }
+    // bad request
+    else {
+      console.error(error);
+      setServerError(error?.data?.title || message);
     }
   };
+
+  const loading = isLoading || previewLoading;
 
   return (
     <div>
@@ -137,7 +120,7 @@ const AddCodeFragmentForm = () => {
         <div className="grid gap-4 sm:grid-cols-2">
           <LoadingButton
             type="submit"
-            disabled={isSubmitting || !isValid || loading}
+            disabled={!isValid}
             loading={isSubmitting || loading}
             loadingMessage="Loading..."
           >
@@ -146,10 +129,10 @@ const AddCodeFragmentForm = () => {
           </LoadingButton>
           <LoadingButton
             type="button"
-            disabled={isSubmitting || !isValid || loading}
+            disabled={!isValid || !isDirty}
             loading={isSubmitting || loading}
             loadingMessage="Loading.."
-            onClick={(e) => fetchPreview(e)}
+            onClick={(e) => handleFetchPreview(e)}
           >
             <CodeIcon size="1.25rem" />
             Preview

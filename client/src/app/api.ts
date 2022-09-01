@@ -4,7 +4,7 @@ import {
   CodePreviewRequestModel
 } from "./models/codeFragmentModel";
 import axios, { AxiosError } from "axios";
-import { FormModel } from "./models/FormModel";
+import { FormModel } from "../features/codeFragment/form/validationSchema";
 
 const BASE_URL = import.meta.env.DEV ? "http://localhost:5003/api/" : "/api/";
 axios.defaults.baseURL = BASE_URL;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 const Code = ({
   code,
@@ -7,7 +7,7 @@ const Code = ({
 }: {
   code: string;
   linesOfCode: number;
-  header?: React.ReactNode;
+  header?: ReactNode;
 }) => {
   const [scale, setScale] = useState(1);
 

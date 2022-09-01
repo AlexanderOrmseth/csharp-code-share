@@ -6,20 +6,24 @@ type Icon = React.FunctionComponent<IconProps>;
 interface Props {
   data: string;
   btnText: string;
+  ariaLabel: string;
   Icon: Icon;
 }
 
-const CopyButton = ({ data, btnText, Icon }: Props) => {
+const CopyButton = ({ data, btnText, Icon, ariaLabel }: Props) => {
   const [showSuccess, setShowSuccess] = useState(false);
 
   const copyText = () => {
-    navigator.clipboard.writeText(data);
-    setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 3000);
+    navigator.clipboard.writeText(data).then(() => {
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 3000);
+    });
   };
 
   return (
     <button
+      aria-label={ariaLabel}
+      type="button"
       disabled={showSuccess}
       className="disabled-btn btn-secondary h-10"
       onClick={copyText}

@@ -1,11 +1,14 @@
-export interface CodeFragmentModel {
+export interface CodeFragmentModel extends CodeFragmentDetails {
+  code: string;
+  linesOfCode: number;
+  codeString: string;
+}
+
+export interface CodeFragmentDetails {
   id: string;
   title?: string | null;
   author?: string | null;
   createdAt: string;
-  code: string;
-  linesOfCode: number;
-  codeString: string;
 }
 
 export interface CodePreviewResponse {
