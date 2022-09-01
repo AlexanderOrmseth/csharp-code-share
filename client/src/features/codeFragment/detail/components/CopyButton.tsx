@@ -13,7 +13,7 @@ interface Props {
 const CopyButton = ({ data, btnText, Icon, ariaLabel }: Props) => {
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const copyText = () => {
+  const copyText = (): void => {
     navigator.clipboard.writeText(data).then(() => {
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 3000);

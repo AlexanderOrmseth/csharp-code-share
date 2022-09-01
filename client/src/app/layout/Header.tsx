@@ -4,7 +4,7 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    <nav className="mx-auto flex  max-w-screen-2xl items-center justify-between  ">
+    <nav className="mx-auto flex  max-w-screen-2xl items-center justify-between">
       <Link
         to="/"
         className="flex items-center gap-x-2 px-2 font-bold hover:text-white/90"

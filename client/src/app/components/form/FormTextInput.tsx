@@ -20,7 +20,7 @@ interface Props<T extends FieldValues> extends UseControllerProps<T> {
 }
 
 // prevent from submitting by pressing enter inside input
-const checkKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+const checkKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
   if (e.code === "Enter") e.preventDefault();
 };
 

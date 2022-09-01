@@ -1,6 +1,8 @@
+import { ReactNode } from "react";
+
 interface Props {
   loading: boolean;
-  children?: React.ReactNode;
+  children?: ReactNode;
   type?: "button" | "submit";
   onClick?: (x?: any) => void;
   disabled: boolean;

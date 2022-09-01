@@ -33,7 +33,7 @@ const CreateCodeFragmentForm = () => {
     api.addCodeFragment,
     {
       onSuccess: (data) => navigate(data),
-      onError: (error: ErrorModel) => {
+      onError: (error: ErrorModel): void => {
         handleMutationError(error, "Error! Could not upload your code.");
       }
     }
@@ -45,7 +45,7 @@ const CreateCodeFragmentForm = () => {
     isLoading: previewLoading,
     data: preview
   } = useMutation(api.getPreview, {
-    onError: (error: ErrorModel) => {
+    onError: (error: ErrorModel): void => {
       handleMutationError(
         error,
         "Error! Could not fetch preview of your code."
@@ -53,13 +53,13 @@ const CreateCodeFragmentForm = () => {
     }
   });
 
-  const onSubmit = async (data: FormModel) => {
+  const onSubmit = async (data: FormModel): Promise<void> => {
     await addCodeFragment(data);
   };
 
   const handleFetchPreview = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  ): Promise<void> => {
     // prevent submit
     e.preventDefault();
     setServerError(null);
@@ -68,19 +68,14 @@ const CreateCodeFragmentForm = () => {
     await fetchPreview({ code });
   };
 
-  const handleMutationError = (error: ErrorModel, message: string) => {
-    // validation error
-    if (error?.data?.errors) {
-      const validationError = Object.values(
-        error.data.errors
-      ).flat()[0] as string;
-      setServerError(validationError || message);
-    }
-    // bad request
-    else {
-      console.error(error);
-      setServerError(error?.data?.title || message);
-    }
+  const handleMutationError = (
+    error: ErrorModel,
+    defaultMessage: string
+  ): void => {
+    const errorMessage = error?.data?.errors
+      ? Object.values(error.data.errors).flat()[0]
+      : error?.data?.title;
+    setServerError(errorMessage ?? defaultMessage);
   };
 
   const loading = isLoading || previewLoading;
