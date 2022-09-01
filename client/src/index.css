@@ -27,9 +27,9 @@
   }
 
   .btn-primary {
-    @apply text-white w-full text-center transition-all flex flex-row items-center justify-center gap-x-2 select-none
+    @apply text-white text-center transition-all flex flex-row items-center justify-center gap-x-2 select-none
     bg-c-sharp-700 hover:bg-c-sharp-800
-    font-medium rounded-full text-sm px-5 py-2 focus:ring-2
+    font-medium rounded-full text-sm px-5 py-1 focus:ring-2
     focus:ring-c-sharp outline-none appearance-none border border-c-sharp-400;
   }
 

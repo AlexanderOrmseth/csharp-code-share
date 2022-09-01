@@ -24,7 +24,7 @@ const DetailsPage = () => {
         setError(null);
         setData(response);
       } catch (error: any) {
-        if (error?.data?.title) {
+        if (error?.data) {
           setError(error.data.title);
         } else {
           setError("Server Error!");

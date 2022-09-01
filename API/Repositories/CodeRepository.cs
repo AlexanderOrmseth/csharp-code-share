@@ -14,10 +14,11 @@ public class CodeRepository : ICodeRepository
         _context = context;
     }
 
-    public async Task<bool> AddCodeAndSave(CodeFragment codeFragment)
+    public async Task<Guid> AddCodeAndSave(CodeFragment codeFragment)
     {
-        _context.CodeFragments.Add(codeFragment);
-        return await _context.SaveChangesAsync() > 0;
+        var result = _context.CodeFragments.Add(codeFragment);
+        await _context.SaveChangesAsync();
+        return result.Entity.Id;
     }
 
     public async Task<CodeFragment?> GetCodeById(Guid id)

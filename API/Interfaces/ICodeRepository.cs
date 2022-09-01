@@ -4,7 +4,7 @@ namespace API.Interfaces;
 
 public interface ICodeRepository
 {
-    Task<bool> AddCodeAndSave(CodeFragment userCode);
+    Task<Guid> AddCodeAndSave(CodeFragment userCode);
 
     Task<CodeFragment?> GetCodeById(Guid id);
 

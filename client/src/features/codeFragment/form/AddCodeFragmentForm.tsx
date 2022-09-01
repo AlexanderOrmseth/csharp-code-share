@@ -42,9 +42,9 @@ const AddCodeFragmentForm = () => {
     setServerError(null);
     try {
       const response = await api.addCodeFragment(data);
-      navigate(response.id);
+      console.log({ response });
+      navigate(response);
     } catch (error: any) {
-      console.log(error);
       if (error?.data?.errors) {
         const validationError = Object.values(
           error.data.errors
@@ -53,6 +53,7 @@ const AddCodeFragmentForm = () => {
           validationError || "Server Error! Could not share your code."
         );
       } else {
+        console.error(error);
         setServerError(
           error?.data?.title || "Server Error! Could not share your code."
         );
@@ -81,10 +82,21 @@ const AddCodeFragmentForm = () => {
       setPreviewCodeString(code);
       setPreview(response);
     } catch (error: any) {
-      setServerError(
-        error?.data?.title ||
-          "Server Error! Could not fetch preview of your code."
-      );
+      if (error?.data?.errors) {
+        const validationError = Object.values(
+          error.data.errors
+        ).flat()[0] as string;
+        setServerError(
+          validationError ||
+            "Server Error! Could not fetch a preview of your code."
+        );
+      } else {
+        console.error(error);
+        setServerError(
+          error?.data?.title ||
+            "Server Error! Could not fetch a preview of your code."
+        );
+      }
     } finally {
       setLoading(false);
     }

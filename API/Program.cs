@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Text.Json;
 using API.Context;
 using API.Extensions;
 using API.Interfaces;
@@ -16,9 +17,15 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
 // Add services to the container.
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
+});
+;
 
-builder.Services.AddControllers()
-    .AddFluentValidation(fv => { fv.RegisterValidatorsFromAssemblyContaining<Program>(); });
+// fluent validation
+builder.Services.AddFluentValidationAutoValidation();
 
 // Db connection for development and production (heroku)
 builder.Services.AddDbContext<MyDbContext>(options =>
@@ -59,6 +66,9 @@ builder.Services.AddDbContext<MyDbContext>(options =>
 
 // Cors settings
 builder.Services.ConfigureCors(myAllowSpecificOrigins);
+
+// add mediatr
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
 // Repositories
 builder.Services.AddScoped<ICodeRepository, CodeRepository>();

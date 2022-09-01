@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
+  const location = useLocation();
+
   return (
-    <nav className="mx-auto flex max-w-screen-2xl items-center justify-start">
+    <nav className="mx-auto flex  max-w-screen-2xl items-center justify-between  ">
       <Link
         to="/"
         className="flex items-center gap-x-2 px-2 font-bold hover:text-white/90"
@@ -18,6 +20,11 @@ const Header = () => {
         </svg>
         <h1>CodeShare</h1>
       </Link>
+      {location.pathname !== "/" && (
+        <Link className="btn-primary" to="/">
+          New
+        </Link>
+      )}
     </nav>
   );
 };

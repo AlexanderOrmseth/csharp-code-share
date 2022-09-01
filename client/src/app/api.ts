@@ -17,9 +17,7 @@ axios.interceptors.response.use(
 
 const api = {
   addCodeFragment: (values: FormModel) => {
-    return axios
-      .post<{ id: string }>(namespace, values)
-      .then((res) => res.data);
+    return axios.post<string>(namespace, values).then((res) => res.data);
   },
   getCodeFragmentById: (id: string, theme?: string | null) => {
     return axios
