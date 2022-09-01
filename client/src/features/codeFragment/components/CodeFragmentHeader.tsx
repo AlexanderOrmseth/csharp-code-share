@@ -5,7 +5,7 @@ interface Props {
   details: CodeFragmentDetails;
 }
 
-const CodeHeader = ({ details }: Props) => {
+const CodeFragmentHeader = ({ details }: Props) => {
   return (
     <header className="border-dark-400 mb-4 items-center gap-x-4 border-b pb-2 text-sm text-gray-100/70 md:flex">
       <h2 className="flex flex-1 flex-wrap items-center gap-2 font-bold">
@@ -29,4 +29,4 @@ const CodeHeader = ({ details }: Props) => {
   );
 };
 
-export default CodeHeader;
+export default CodeFragmentHeader;

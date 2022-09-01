@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import { Share, Code as CodeIcon, Info, Eye } from "react-feather";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import api from "../../../app/api";
-import Code from "../components/Code";
-import FormTextInput from "../../../app/components/form/FormTextInput";
-import LoadingButton from "../../../app/components/LoadingButton";
-import { FormModel, FormSchema } from "./validationSchema";
+import api from "../../../app/services/api";
+import CodeFragment from "../components/CodeFragment";
+import { FormModel, FormValidation } from "./formValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Loader from "../../../app/components/Loader";
-import ErrorBox from "../../../app/components/ErrorBox";
 import { useMutation } from "react-query";
 import { ErrorModel } from "../../../app/models/errorModel";
+import ErrorBox from "../../../app/components/ErrorBox";
+import FormTextInput from "../../../app/components/form/FormTextInput";
+import LoadingButton from "../../../app/components/LoadingButton";
+import Loader from "../../../app/components/Loader";
 
-const AddCodeFragmentForm = () => {
+const CreateCodeFragmentForm = () => {
   const navigate = useNavigate();
   const [serverError, setServerError] = useState<string | null>(null);
   const {
@@ -25,7 +25,7 @@ const AddCodeFragmentForm = () => {
   } = useForm<FormModel>({
     mode: "all",
     reValidateMode: "onChange",
-    resolver: zodResolver(FormSchema)
+    resolver: zodResolver(FormValidation)
   });
 
   // add
@@ -147,7 +147,7 @@ const AddCodeFragmentForm = () => {
         <>
           {preview && (
             <div className="mt-4">
-              <Code
+              <CodeFragment
                 code={preview.html}
                 linesOfCode={preview.linesOfCode}
                 header={
@@ -169,4 +169,4 @@ const AddCodeFragmentForm = () => {
   );
 };
 
-export default AddCodeFragmentForm;
+export default CreateCodeFragmentForm;

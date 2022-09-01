@@ -1,4 +1,4 @@
-import CopyButton from "../../../app/components/CopyButton";
+import CopyButton from "./CopyButton";
 import { Code as CodeIcon, Link2 as LinkIcon } from "react-feather";
 
 interface Props {
@@ -7,13 +7,9 @@ interface Props {
   handleThemeChanged: (theme: string) => void;
 }
 
-const DetailsPageActions = ({
-  handleThemeChanged,
-  theme,
-  codeToCopy
-}: Props) => {
+const DetailHeader = ({ handleThemeChanged, theme, codeToCopy }: Props) => {
   return (
-    <div role="group" className="mb-2 grid gap-2 sm:grid-cols-3">
+    <header role="group" className="mb-2 grid gap-2 sm:grid-cols-3">
       <button
         aria-label="Change to Rider theme"
         className="btn-secondary disabled-btn h-10"
@@ -46,8 +42,8 @@ const DetailsPageActions = ({
         Icon={CodeIcon}
         data={codeToCopy}
       />
-    </div>
+    </header>
   );
 };
 
-export default DetailsPageActions;
+export default DetailHeader;

@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import FrontPage from "../features/codeFragment/FrontPage";
-import DetailsPage from "../features/codeFragment/DetailsPage";
-import Layout from "./layout/Layout";
-import ScrollToTop from "./components/ScrollToTop";
-import ErrorBox from "./components/ErrorBox";
+import CreateCodeFragment from "../../pages/CreateCodeFragment";
+import CodeFragmentDetail from "../../pages/CodeFragmentDetail";
+import Layout from "./Layout";
+import ErrorBox from "../components/ErrorBox";
+import ScrollToTop from "../components/ScrollToTop";
 
 const App = () => {
   return (
@@ -11,8 +11,8 @@ const App = () => {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<FrontPage />} />
-          <Route path=":id" element={<DetailsPage />} />
+          <Route index element={<CreateCodeFragment />} />
+          <Route path=":id" element={<CodeFragmentDetail />} />
           <Route
             path="*"
             element={<ErrorBox message="This page does not exist!" />}

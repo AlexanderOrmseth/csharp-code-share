@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 
-const Code = ({
+const CodeFragment = ({
   code,
   linesOfCode,
   header
@@ -52,4 +52,4 @@ const Code = ({
   );
 };
 
-export default Code;
+export default CodeFragment;

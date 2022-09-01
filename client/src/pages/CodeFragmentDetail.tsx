@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import api from "../../app/api";
-import ErrorBox from "../../app/components/ErrorBox";
-import Loader from "../../app/components/Loader";
-import CodeHeader from "./components/CodeHeader";
-import Code from "./components/Code";
+import api from "../app/services/api";
 import { useQuery } from "react-query";
-import type { ErrorModel } from "../../app/models/errorModel";
-import DetailsPageActions from "./components/DetailsPageActions";
+import type { ErrorModel } from "../app/models/errorModel";
+import Loader from "../app/components/Loader";
+import ErrorBox from "../app/components/ErrorBox";
+import DetailHeader from "../features/codeFragment/detail/components/DetailHeader";
+import CodeFragment from "../features/codeFragment/components/CodeFragment";
+import CodeFragmentHeader from "../features/codeFragment/components/CodeFragmentHeader";
 
-const DetailsPage = () => {
+const CodeFragmentDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
   const theme = searchParams.get("theme");
@@ -37,15 +37,15 @@ const DetailsPage = () => {
   else
     content = data ? (
       <>
-        <DetailsPageActions
+        <DetailHeader
           theme={theme}
           handleThemeChanged={handleThemeChanged}
           codeToCopy={data.codeString}
         />
-        <Code
+        <CodeFragment
           code={data.code}
           linesOfCode={data.linesOfCode}
-          header={<CodeHeader details={data} />}
+          header={<CodeFragmentHeader details={data} />}
         />
       </>
     ) : (
@@ -55,4 +55,4 @@ const DetailsPage = () => {
   return <div>{content}</div>;
 };
 
-export default DetailsPage;
+export default CodeFragmentDetail;
