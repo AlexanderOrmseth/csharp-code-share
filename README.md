@@ -2,7 +2,7 @@
 
 A simple code-sharing web-application with C# syntax highlight.
 
-https://csharp-code-share.herokuapp.com/
+
 
 ![Screenshot 2022-09-01 at 17 34 00](https://user-images.githubusercontent.com/33042077/187954338-a255f02f-8b9d-471b-be55-93a87f780966.png)
 
